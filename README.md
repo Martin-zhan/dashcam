@@ -17,7 +17,7 @@ LogAgent 使用说明:
 ### 在Resources目录下面添加dashcam-common.properties
 ```
 #必要，应用唯一标识，不可随意乱写。
-dashcam.common.appName=9096123
+dashcam.common.appId=9096123
 #Kafka broker地址               
 dashcam.common.config.kafka-brokers=localhost:9092
 dashcam.common.config.level=INFO
