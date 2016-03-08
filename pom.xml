@@ -9,8 +9,7 @@
 
   <modules>
     <module>dashcam-common</module>
-    <module>dashcam-agent</module>
-    <module>dashcam-spring</module>
+    <module>dashcam-agents</module>
     <module>dashcam-examples</module>
     <module>dashcam-web</module>
     <module>dashcam-writer</module>

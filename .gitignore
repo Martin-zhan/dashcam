@@ -11,6 +11,8 @@
 bin/**
 tmp/**
 tmp/**/*
+node_modules/**
+node_modules
 *.iml
 .DS_Store
 .idea
