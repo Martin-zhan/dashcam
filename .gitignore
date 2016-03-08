@@ -12,6 +12,7 @@ bin/**
 tmp/**
 tmp/**/*
 *.iml
+.DS_Store
 .idea
 *.tmp
 *.bak
