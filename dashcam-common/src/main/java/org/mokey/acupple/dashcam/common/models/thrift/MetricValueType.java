@@ -9,7 +9,7 @@ package org.mokey.acupple.dashcam.common.models.thrift;
 
 import org.apache.thrift.TEnum;
 
-public enum MetricValueType implements org.apache.thrift.TEnum {
+public enum MetricValueType implements TEnum {
   TYPE_FLOAT(0),
   TYPE_LONG(1);
 
@@ -30,7 +30,7 @@ public enum MetricValueType implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static MetricValueType findByValue(int value) { 
+  public static MetricValueType findByValue(int value) {
     switch (value) {
       case 0:
         return TYPE_FLOAT;

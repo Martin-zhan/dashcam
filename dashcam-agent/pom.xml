@@ -13,6 +13,8 @@
 
     <properties>
         <disruptor-version>3.3.4</disruptor-version>
+        <kafka-clients-version>0.8.2.1</kafka-clients-version>
+        <maven-source-plugin-version>2.2.1</maven-source-plugin-version>
     </properties>
 
     <dependencies>
@@ -26,5 +28,31 @@
             <artifactId>disruptor</artifactId>
             <version>${disruptor-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka-clients-version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin-version}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

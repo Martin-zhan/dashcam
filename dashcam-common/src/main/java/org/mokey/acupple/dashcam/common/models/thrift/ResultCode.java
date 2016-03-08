@@ -9,7 +9,7 @@ package org.mokey.acupple.dashcam.common.models.thrift;
 
 import org.apache.thrift.TEnum;
 
-public enum ResultCode implements org.apache.thrift.TEnum {
+public enum ResultCode implements TEnum {
   SUCCESS(0),
   FAILURE(1),
   TRY_LATER(2);
@@ -31,7 +31,7 @@ public enum ResultCode implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static ResultCode findByValue(int value) { 
+  public static ResultCode findByValue(int value) {
     switch (value) {
       case 0:
         return SUCCESS;

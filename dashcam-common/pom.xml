@@ -13,6 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-source-plugin-version>2.2.1</maven-source-plugin-version>
         <libthrift-version>0.9.2</libthrift-version>
         <maven-source-plugin-version>2.2.1</maven-source-plugin-version>
     </properties>

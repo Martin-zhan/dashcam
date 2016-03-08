@@ -74,4 +74,19 @@ public class DashcamProperties {
         return chunkSize;
     }
 
+    /**
+     *
+     */
+    private String env = "DEV";
+    public String getEnv() {
+        return env;
+    }
+
+    /**
+     *
+     */
+    private String envGroup = "DEV";
+    public String getEnvGroup() {
+        return envGroup;
+    }
 }

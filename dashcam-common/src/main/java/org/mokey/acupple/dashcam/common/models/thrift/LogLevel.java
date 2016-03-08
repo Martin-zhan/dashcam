@@ -9,7 +9,7 @@ package org.mokey.acupple.dashcam.common.models.thrift;
 
 import org.apache.thrift.TEnum;
 
-public enum LogLevel implements org.apache.thrift.TEnum {
+public enum LogLevel implements TEnum {
   DEBUG(0),
   INFO(1),
   WARN(2),
@@ -33,7 +33,7 @@ public enum LogLevel implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static LogLevel findByValue(int value) { 
+  public static LogLevel findByValue(int value) {
     switch (value) {
       case 0:
         return DEBUG;

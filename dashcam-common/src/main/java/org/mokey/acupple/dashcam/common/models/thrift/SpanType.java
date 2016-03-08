@@ -9,7 +9,7 @@ package org.mokey.acupple.dashcam.common.models.thrift;
 
 import org.apache.thrift.TEnum;
 
-public enum SpanType implements org.apache.thrift.TEnum {
+public enum SpanType implements TEnum {
   OTHER(0),
   URL(1),
   WEB_SERVICE(2),
@@ -33,7 +33,7 @@ public enum SpanType implements org.apache.thrift.TEnum {
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
    * @return null if the value is not found.
    */
-  public static SpanType findByValue(int value) { 
+  public static SpanType findByValue(int value) {
     switch (value) {
       case 0:
         return OTHER;

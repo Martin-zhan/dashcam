@@ -1,4 +1,4 @@
-namespace java org.mokey.acupple.dashcam.common.models
+namespace java org.mokey.acupple.dashcam.common.models.thrift
 
 enum LogLevel{
 	DEBUG = 0,
