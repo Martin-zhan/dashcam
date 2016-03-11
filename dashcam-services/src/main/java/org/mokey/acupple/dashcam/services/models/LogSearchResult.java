@@ -1,4 +1,6 @@
-package org.mokey.acupple.dashcam.common.models;
+package org.mokey.acupple.dashcam.services.models;
+
+import org.mokey.acupple.dashcam.services.hbase.models.RawLog;
 
 import java.util.ArrayList;
 import java.util.List;

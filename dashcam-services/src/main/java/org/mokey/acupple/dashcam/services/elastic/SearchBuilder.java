@@ -1,7 +1,7 @@
 package org.mokey.acupple.dashcam.services.elastic;
 
 import org.elasticsearch.index.query.*;
-import org.mokey.acupple.dashcam.common.models.LogSearchParam;
+import org.mokey.acupple.dashcam.services.models.LogSearchParam;
 import org.mokey.acupple.dashcam.common.utils.Strings;
 
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;

@@ -13,7 +13,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.mokey.acupple.dashcam.common.models.LogSearchParam;
+import org.mokey.acupple.dashcam.services.models.LogSearchParam;
 import org.mokey.acupple.dashcam.common.utils.NetAddress;
 import org.mokey.acupple.dashcam.common.utils.NetAddressList;
 import org.mokey.acupple.dashcam.common.utils.Strings;

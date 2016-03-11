@@ -5,17 +5,17 @@ import org.apache.hadoop.hbase.util.Base64;
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.common.collect.Maps;
 import org.elasticsearch.search.SearchHit;
-import org.mokey.acupple.dashcam.common.models.LogSearchParam;
-import org.mokey.acupple.dashcam.common.models.LogSearchResult;
-import org.mokey.acupple.dashcam.common.models.RawLog;
 import org.mokey.acupple.dashcam.common.models.thrift.LogEvent;
 import org.mokey.acupple.dashcam.common.utils.Strings;
 import org.mokey.acupple.dashcam.services.LogEventService;
 import org.mokey.acupple.dashcam.services.constants.CommonConstants;
 import org.mokey.acupple.dashcam.services.elastic.LogIndexDao;
 import org.mokey.acupple.dashcam.services.hbase.RawLogDao;
+import org.mokey.acupple.dashcam.services.hbase.models.RawLog;
+import org.mokey.acupple.dashcam.services.models.LogSearchParam;
 import org.mokey.acupple.dashcam.services.models.LogIndex;
 import org.mokey.acupple.dashcam.services.models.LogIndexResult;
+import org.mokey.acupple.dashcam.services.models.LogSearchResult;
 import org.mokey.acupple.dashcam.services.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +72,7 @@ public class LogEventServiceImpl implements LogEventService {
 		long begin = System.currentTimeMillis();
 		int N = 0;
 		while (!enough) {
-			LogIndexResult searchResult = indexDao.search(param,
-					lastResultIndex, limit);
+			LogIndexResult searchResult = indexDao.search(param, lastResultIndex, limit);
 			if (searchResult == null || searchResult.getHits() == null) {
 				enough = true;
 				break;

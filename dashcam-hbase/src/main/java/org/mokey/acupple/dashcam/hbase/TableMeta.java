@@ -12,6 +12,7 @@ import org.mokey.acupple.dashcam.hbase.annotations.Table;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NavigableMap;
 
 /**
  * Created by enousei on 3/10/16.
@@ -105,9 +106,19 @@ public class TableMeta {
         Put put = new Put(base.getRowKey());
         for (FieldMeta field: fieldMap.values()){
             try {
-                byte[] bytes = toByte(field.getField().get(base), field);
-                if(bytes != null)
-                    put.addColumn(field.getHfamily(), field.getQualifier(), bytes);
+                Object obj = field.getField().get(base);
+                if(field.getType() == HType.MAP && obj != null){
+                    Map map = (Map)obj;
+                    for (Object key: map.keySet()){
+                        put.addColumn(field.getHfamily(),
+                                toByte(key, field.getKeyType()),
+                                toByte(map.get(key),field.getValueType()));
+                    }
+                }else {
+                    byte[] bytes = toByte(field.getField().get(base), field.getType());
+                    if (bytes != null)
+                        put.addColumn(field.getHfamily(), field.getQualifier(), bytes);
+                }
             }catch (Exception ex){
                 ex.printStackTrace();
             }
@@ -127,39 +138,49 @@ public class TableMeta {
 
     private void setValue(Object instance, FieldMeta field, Result rs){
         try{
-            byte[] value = rs.getValue(field.getHfamily(), field.getQualifier());
-            if(value == null){
-                return;
-            }
-            switch (field.getType()){
-                case INT:
-                    field.getField().set(instance, Bytes.toInt(value));
-                    break;
-                case SHORT:
-                    field.getField().set(instance, Bytes.toShort(value));
-                    break;
-                case CHAR:
-                    field.getField().set(instance, toChar(value));
-                    break;
-                case LONG:
-                    field.getField().set(instance, Bytes.toLong(value));
-                    break;
-                case DOUBLE:
-                    field.getField().set(instance, Bytes.toDouble(value));
-                    break;
-                case FLOAT:
-                    field.getField().set(instance, Bytes.toFloat(value));
-                    break;
-                case STRING:
-                    field.getField().set(instance, Bytes.toString(value));
+            if(field.getType() == HType.MAP){
+                field.getField().set(instance, new HashMap<>());
+                Map map = (Map)field.getField().get(instance);
+                NavigableMap<byte[], byte[]> tags = rs.getFamilyMap(field.getHfamily());
+                for(Map.Entry<byte[], byte[]> entry : tags.entrySet()){
+                    map.put(Bytes.toString(entry.getKey()), Bytes.toString(entry.getValue()));
+                }
+            }else {
+                byte[] value = rs.getValue(field.getHfamily(), field.getQualifier());
+                if (value == null) {
+                    return;
+                }
+                switch (field.getType()) {
+                    case INT:
+                        field.getField().set(instance, Bytes.toInt(value));
+                        break;
+                    case SHORT:
+                        field.getField().set(instance, Bytes.toShort(value));
+                        break;
+                    case CHAR:
+                        field.getField().set(instance, toChar(value));
+                        break;
+                    case LONG:
+                        field.getField().set(instance, Bytes.toLong(value));
+                        break;
+                    case DOUBLE:
+                        field.getField().set(instance, Bytes.toDouble(value));
+                        break;
+                    case FLOAT:
+                        field.getField().set(instance, Bytes.toFloat(value));
+                        break;
+                    case STRING:
+                        field.getField().set(instance, Bytes.toString(value));
+                        break;
+                }
             }
         }catch (Throwable ex){
             ex.printStackTrace();
         }
     }
 
-    private byte[] toByte(Object obj, FieldMeta field){
-        switch (field.getType()){
+    private byte[] toByte(Object obj, HType type){
+        switch (type){
             case INT:
                 return Bytes.toBytes((int)obj);
             case SHORT:
@@ -179,7 +200,7 @@ public class TableMeta {
         return null;
     }
 
-    private char toChar(byte[] value){
+    private char toChar(byte[] value) {
         return (char) ((0xff & value[0]) | (0xff00 & (value[1] << 8)));
     }
 }

@@ -1,7 +1,7 @@
 package org.mokey.acupple.dashcam.services;
 
-import org.mokey.acupple.dashcam.common.models.LogSearchParam;
-import org.mokey.acupple.dashcam.common.models.LogSearchResult;
+import org.mokey.acupple.dashcam.services.models.LogSearchParam;
+import org.mokey.acupple.dashcam.services.models.LogSearchResult;
 import org.mokey.acupple.dashcam.common.models.thrift.LogEvent;
 
 import java.util.List;

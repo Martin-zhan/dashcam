@@ -3,12 +3,12 @@ package org.mokey.acupple.dashcam.services.impl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.hadoop.hbase.util.Base64;
-import org.mokey.acupple.dashcam.common.models.TraceResult;
 import org.mokey.acupple.dashcam.common.models.thrift.Span;
 import org.mokey.acupple.dashcam.services.TraceService;
 import org.mokey.acupple.dashcam.services.hbase.RawLogDao;
 import org.mokey.acupple.dashcam.services.hbase.TraceDao;
 import org.mokey.acupple.dashcam.services.models.ExtendSpan;
+import org.mokey.acupple.dashcam.services.models.TraceResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

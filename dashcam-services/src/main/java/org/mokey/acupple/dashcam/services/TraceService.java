@@ -1,7 +1,7 @@
 package org.mokey.acupple.dashcam.services;
 
-import org.mokey.acupple.dashcam.common.models.TraceResult;
 import org.mokey.acupple.dashcam.common.models.thrift.Span;
+import org.mokey.acupple.dashcam.services.models.TraceResult;
 
 import java.io.InvalidObjectException;
 import java.util.List;
