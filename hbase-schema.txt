@@ -1,0 +1,117 @@
+
+disable 'dashcam_rawlog'
+
+drop 'dashcam_rawlog'
+
+create 'dashcam_rawlog', 'content', 'tag'
+
+disable 'dashcam_rawlog'
+
+alter 'dashcam_rawlog', NAME=>'content', TTL=>'15552000'
+
+alter 'dashcam_rawlog', NAME=>'tag', TTL=>'15552000'
+
+enable 'dashcam_rawlog'
+
+
+disable 'dashcam_host'
+
+drop 'dashcam_host'
+
+create 'dashcam_host', 'hostinfo'
+
+disable 'dashcam_host'
+
+alter 'dashcam_host', NAME=>'hostinfo', TTL=>'15552000'
+
+enable 'dashcam_host'
+
+
+
+disable 'dashcam_app_counter'
+
+drop 'dashcam_app_counter'
+
+create 'dashcam_app_counter', 'app_mcount'
+
+disable 'dashcam_app_counter'r
+
+alter 'dashcam_app_counter', NAME=>'app_mcount', TTL=>'15552000'
+
+enable 'dashcam_app_counter'
+
+
+
+disable 'dashcam_counter'
+
+drop 'dashcam_counter'
+
+create 'dashcam_counter', 'mcount'
+
+disable 'dashcam_counter'
+
+alter 'dashcam_counter', NAME=>'mcount', TTL=>'15552000'
+
+enable 'dashcam_counter'
+
+disable 'dashcam_app_hcounter'
+
+drop 'dashcam_app_hcounter'
+
+create 'dashcam_app_hcounter', 'app_hcount'
+
+disable 'dashcam_app_hcounter'
+
+alter 'dashcam_app_hcounter', NAME=>'app_hcount', TTL=>'15552000'
+
+enable 'dashcam_app_hcounter'
+
+disable 'dashcam_hcounter'
+
+drop 'dashcam_hcounter'
+
+create 'dashcam_hcounter', 'hcount'
+
+disable 'dashcam_hcounter'
+
+alter 'dashcam_hcounter', NAME=>'hcount', TTL=>'15552000'
+
+enable 'dashcam_hcounter'
+
+disable 'dashcam_hcounter_rate'
+
+drop 'dashcam_hcounter_rate'
+
+create 'dashcam_hcounter_rate', 'hcount_rate'
+
+disable 'dashcam_hcounter_rate'
+
+alter 'dashcam_hcounter_rate', NAME=>'hcount_rate', TTL=>'15552000'
+
+enable 'dashcam_hcounter_rate'
+
+
+disable 'dashcam_trace'
+
+drop 'dashcam_trace'
+
+create 'dashcam_trace', 'trace'
+
+disable 'dashcam_trace'
+
+alter 'dashcam_trace', NAME=>'trace', TTL=>'15552000'
+
+enable 'dashcam_trace'
+
+
+disable 'dashcam_span'
+
+drop 'dashcam_span'
+
+create 'dashcam_span', 'span'
+
+disable 'dashcam_span'
+
+alter 'dashcam_span', NAME=>'span', TTL=>'15552000'
+
+enable 'dashcam_span'

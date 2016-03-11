@@ -9,35 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dashcam-writer</artifactId>
+    <artifactId>dashcam-hbase</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <curator-framework-version>3.1.0</curator-framework-version>
-        <elasticsearch-version>1.6.0</elasticsearch-version>
         <hbase-version>1.2.0</hbase-version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.mokey.acupple</groupId>
-            <artifactId>dashcam-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-framework</artifactId>
-            <version>${curator-framework-version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
             <version>${hbase-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-            <version>${elasticsearch-version}</version>
         </dependency>
     </dependencies>
 </project>

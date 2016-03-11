@@ -3,7 +3,9 @@ package org.mokey.acupple.dashcam.common.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Yuan on 2015/7/30.
@@ -58,5 +60,37 @@ public class DateUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static Integer getRelativeDay(long time) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time);
+        return 365 - calendar.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static Integer getRelativeMillSeconds(long time) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time);
+        return Integer.valueOf(3600 * 24 * 1000 - (calendar
+                .get(Calendar.HOUR_OF_DAY)
+                * 3600
+                * 1000
+                + calendar.get(Calendar.MINUTE)
+                * 60
+                * 1000
+                + calendar.get(Calendar.SECOND) * 1000 + calendar
+                .get(Calendar.MILLISECOND)));
+    }
+
+    public static long getMinutePart(long timestamp) {
+        return timestamp / (60 * 1000) * (60 * 1000);
+    }
+
+    public static long getHourPart(long timestamp) {
+        return timestamp / (60 * 60 * 1000) * (60 * 60 * 1000);
+    }
+
+    public static long getNextHourPart(long timestamp) {
+        return getHourPart(timestamp) + 60 * 60 * 1000;
     }
 }
