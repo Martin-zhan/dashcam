@@ -6,3 +6,4 @@
 3. Trace和自动trace调用链路
 
 
+![](https://github.com/acupple/dashcam/blob/master/Arch.jpg)
