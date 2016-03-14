@@ -1,5 +1,6 @@
 package org.mokey.acupple.dashcam.hbase;
 
+import com.google.common.collect.Lists;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
@@ -7,12 +8,11 @@ import org.apache.hadoop.hbase.client.Increment;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.mokey.acupple.dashcam.hbase.annotations.Entity;
 import org.mokey.acupple.dashcam.hbase.annotations.Table;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NavigableMap;
+import java.util.*;
 
 /**
  * Created by enousei on 3/10/16.
@@ -40,8 +40,9 @@ public class TableMeta {
 
             this.htableName = TableName.valueOf(tableName);
 
-            Field[] fields = this.clazz.getDeclaredFields();
-            if(fields == null){
+            Field[] fields = getEntityFileds();
+
+            if(fields == null || fields.length == 0){
                 return;
             }
 
@@ -136,6 +137,24 @@ public class TableMeta {
         return tableDesc;
     }
 
+    private Field[] getEntityFileds(){
+        List<Field> fields = Lists.newArrayList();
+        Field[] thisFields = this.clazz.getDeclaredFields();
+        for (Field field: thisFields){
+            if(field.getAnnotation(Entity.class) != null){
+                fields.add(field);
+            }
+        }
+        Field[] suprtFields = this.clazz.getSuperclass().getDeclaredFields();
+        for (Field field: suprtFields){
+            if(field.getAnnotation(Entity.class) != null){
+                fields.add(field);
+            }
+        }
+        Field[] entities = new Field[fields.size()];
+        return fields.toArray(entities);
+    }
+
     private void setValue(Object instance, FieldMeta field, Result rs){
         try{
             if(field.getType() == HType.MAP){
@@ -143,43 +162,55 @@ public class TableMeta {
                 Map map = (Map)field.getField().get(instance);
                 NavigableMap<byte[], byte[]> tags = rs.getFamilyMap(field.getHfamily());
                 for(Map.Entry<byte[], byte[]> entry : tags.entrySet()){
-                    map.put(Bytes.toString(entry.getKey()), Bytes.toString(entry.getValue()));
+                    if(entry.getKey().length == 0){
+                        continue;
+                    }
+                    if(entry.getValue().length == 0){
+                        map.put(getValue(field.getKeyType(), entry.getKey()), null);
+                    }else {
+                        map.put(getValue(field.getKeyType(), entry.getKey()),
+                                getValue(field.getValueType(), entry.getValue()));
+                    }
                 }
-            }else {
+            } else {
                 byte[] value = rs.getValue(field.getHfamily(), field.getQualifier());
-                if (value == null) {
+                if (value == null || value.length == 0) {
                     return;
                 }
-                switch (field.getType()) {
-                    case INT:
-                        field.getField().set(instance, Bytes.toInt(value));
-                        break;
-                    case SHORT:
-                        field.getField().set(instance, Bytes.toShort(value));
-                        break;
-                    case CHAR:
-                        field.getField().set(instance, toChar(value));
-                        break;
-                    case LONG:
-                        field.getField().set(instance, Bytes.toLong(value));
-                        break;
-                    case DOUBLE:
-                        field.getField().set(instance, Bytes.toDouble(value));
-                        break;
-                    case FLOAT:
-                        field.getField().set(instance, Bytes.toFloat(value));
-                        break;
-                    case STRING:
-                        field.getField().set(instance, Bytes.toString(value));
-                        break;
-                }
+                field.getField().set(instance, getValue(field.getType(), value));
             }
         }catch (Throwable ex){
             ex.printStackTrace();
         }
     }
 
+    private Object getValue(HType type, byte[] value) throws Exception{
+        switch (type) {
+            case INT:
+                return Bytes.toInt(value);
+            case SHORT:
+                return Bytes.toShort(value);
+            case CHAR:
+                return toChar(value);
+            case LONG:
+                return Bytes.toLong(value);
+            case DOUBLE:
+                return Bytes.toDouble(value);
+            case FLOAT:
+                return Bytes.toFloat(value);
+            case STRING:
+                return Bytes.toString(value);
+            case BINARY:
+                return value;
+            default:
+                return null;
+        }
+    }
+
     private byte[] toByte(Object obj, HType type){
+        if(obj == null){
+            return null;
+        }
         switch (type){
             case INT:
                 return Bytes.toBytes((int)obj);
@@ -195,6 +226,8 @@ public class TableMeta {
                 return Bytes.toBytes((float)obj);
             case STRING:
                 return Bytes.toBytes((String)obj);
+            case BINARY:
+                return (byte[])obj;
         }
 
         return null;

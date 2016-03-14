@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by enousei on 3/10/16.
  */
 public enum HType {
-    CHAR, INT, SHORT, LONG, FLOAT, DOUBLE, STRING, MAP, UNKNOWN;
+    CHAR, INT, SHORT, LONG, FLOAT, DOUBLE, STRING, MAP, BINARY, UNKNOWN;
 
     public static HType parse(Class<?> clazz){
         HType type = HType.UNKNOWN;
@@ -26,6 +26,8 @@ public enum HType {
             type = STRING;
         }else if(clazz.equals(Map.class)){
             type = MAP;
+        }else if(clazz.equals(byte[].class)){
+            type = BINARY;
         }
         return type;
     }

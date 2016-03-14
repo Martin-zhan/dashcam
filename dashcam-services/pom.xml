@@ -20,6 +20,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mokey.acupple</groupId>
             <artifactId>dashcam-common</artifactId>
             <version>1.0-SNAPSHOT</version>
