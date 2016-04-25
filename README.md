@@ -4,6 +4,7 @@
 1. 支持Java, NodeJs
 2. 快速检索
 3. Trace和自动trace调用链路
+4. Metrics dashboard功能
 
 
 ![](https://github.com/acupple/dashcam/blob/master/Arch.jpg)
