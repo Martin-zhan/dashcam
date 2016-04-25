@@ -9,9 +9,10 @@
 ![](https://github.com/acupple/dashcam/blob/master/Arch.jpg)
 
 # Trace设计
+
+```bash
 logevent: traceId
 span: spanId, traceId, parentSpanId, startTime, stopTime
-
 
 tracer = log.startTrace();
 span = tracer.startSpan();
@@ -22,3 +23,4 @@ log.info("message");
 spanInner.stop();
 span.stop();
 tracer.stop()
+```
