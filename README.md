@@ -24,3 +24,7 @@ spanInner.stop();
 span.stop();
 tracer.stop()
 ```
+# Metrics 接口定义
+```java
+void metrics(String name, Map<String, String> attrs, long value);
+```
